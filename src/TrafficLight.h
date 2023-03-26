@@ -5,7 +5,8 @@
 #include <deque>
 #include <condition_variable>
 #include "TrafficObject.h"
-
+#include <vector>
+#include <future>
 // forward declarations to avoid include cycle
 class Vehicle;
 enum TrafficLightPhase{
@@ -42,7 +43,7 @@ class TrafficLight : public TrafficObject
 public:
     // constructor / desctructor
     TrafficLight();
-    ~TrafficLight(){};
+    ~TrafficLight();
     // getters / setters
 
     // typical behaviour methods
@@ -60,6 +61,7 @@ private:
     std::condition_variable _condition;
     std::mutex _mutex;
     std::shared_ptr<MessageQueue<TrafficLightPhase>> _queue;
+    std::vector<std::future<void>> futures;
 };
 
 #endif

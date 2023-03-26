@@ -36,6 +36,14 @@ void MessageQueue<T>::send(T &&msg)
 TrafficLight::TrafficLight()
 {
     _currentPhase = TrafficLightPhase::red;
+  	_queue = std::make_shared<MessageQueue<TrafficLightPhase>>();
+}
+
+TrafficLight::~TrafficLight()
+{
+    for(auto & f: futures){
+      f.wait();
+    }
 }
 
 void TrafficLight::waitForGreen()
@@ -90,7 +98,7 @@ void TrafficLight::cycleThroughPhases()
 
             //send update
             TrafficLightPhase phase = _currentPhase;
-            _queue->send(std::move(phase));
+          futures.emplace_back(std::async(std::launch::async,&MessageQueue<TrafficLightPhase>::send,_queue,std::move(phase)));
         }
         lastUpdate = std::chrono::system_clock::now();
     }
