@@ -23,10 +23,11 @@ class MessageQueue
 {
 public:
     T receive();
-    void send(T&& phase);
+    void send(T&& msg);
 private:
     std::deque<T> _queue;
     std::condition_variable _cond;
+    std::mutex _mtx;
 };
 
 // FP.1 : Define a class „TrafficLight“ which is a child class of TrafficObject. 
@@ -58,6 +59,7 @@ private:
 
     std::condition_variable _condition;
     std::mutex _mutex;
+    std::shared_ptr<MessageQueue<TrafficLightPhase>> _queue;
 };
 
 #endif
