@@ -1,0 +1,15 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "mutex": "cpp",
+        "atomic": "cpp",
+        "condition_variable": "cpp",
+        "memory": "cpp",
+        "type_traits": "cpp",
+        "deque": "cpp",
+        "format": "cpp",
+        "list": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp"
+    }
+}
